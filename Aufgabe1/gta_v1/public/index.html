@@ -23,20 +23,40 @@
 
 			<section class="tagging">
 				<h2>Tagging</h2>
-
-				<!-- ############### Aufgabe1a Form1 Start -->
-				<form id="tag-form" action="/tagging" method="post"></form>
-				<!-- ############### Aufgabe1a Form1 Ende -->
-
+				<fieldset> 
+					<legend>Enter new GeoTag </legend>
+					<form id="tag-form" action="/tagging" method="post">
+					<br>	
+					<label for = latitude>latitude</label>
+					<input type = text name = latitude required placeholder = "latitude in degree">
+					<br>
+					<label for = longitude>longitude</label>
+					<input type = text name = longitude required placeholder = "longitude in degree">
+					<br>
+					<label for = name>name</label> 
+					<input type = text name = name required pattern = "[A-Z,a-z]+"  maxlength =10 placeholder = "name of the GeoTag (A-Z,a-z)">
+					<br>
+					<label for = hashtag>hashtag</label> 
+					<input type = text name = hashtag  pattern = "#[A-Z,a-z]+"  maxlength =11 placeholder = "#hashtag">
+					<br>
+					<br>
+					<button name = submitGeoTag> Submit</button>
+					</form>
+				</fieldset>
 			</section>
 
 			<section class="discovery">
 				<h2>Discovery</h2>
-
-				<!-- ############### Aufgabe1a Form2 Start -->
-				<form id="filter-form" action="/discovery" method="post"></form>
-				<!-- ############### Aufgabe1a Form2 Ende -->
-
+				<fieldset>
+					<legend> Filter by searchterm</legend>
+					<!-- ############### Aufgabe1a Form2 Start -->
+					<form id="filter-form" action="/discovery" method="post">
+					<input type = text name = searchterm required>
+					<button name = searchGeoTag> Search</button>
+					<button name = removeGeoTag> R</button>
+					</form>
+					<!-- ############### Aufgabe1a Form2 Ende -->
+				</fieldset>
 				<div class="taglist">
 					<ul id="results">
 						<li>Castle (49.01379, 8.404435) #sight</li>
