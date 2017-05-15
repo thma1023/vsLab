@@ -48,6 +48,32 @@ var gtaLocator = (function GtaLocator() {
         }
     };
 
+// Funktion, die Koordinaten erhält von trylocate().
+// Im index.html werden latitude und lingitude ein ID zugewiesen,
+// und hier mit x bzw. y initialisiert. x/x2 und y/y2 wird dann mit
+// den Werten aus unseren Koordinaten zugewiesen.
+// x2 und y2 sind die versteckten Eingabefelder in Discovery.
+// Letzter Abschnitt Zusaufgabe : getLocationMapSrc() gibt uns ein Link für ein Bild,
+// welches wir dann z zuweisen. Vorher wird die id "result-img" noch mit z verknüpft.
+	var positiondata = function(recievedData) {
+		var x = document.getElementById("latitude");
+		var y = document.getElementById("longitude");
+		x.value = getLatitude(recievedData);
+		y.value = getLongitude(recievedData);
+		
+		var x2 = document.getElementById("latitude2");
+		var y2 = document.getElementById("longitude2");
+		x2.value = getLatitude(recievedData);
+		y2.value = getLongitude(recievedData);
+		
+		var url = getLocationMapSrc(getLatitude(recievedData),getLongitude(recievedData));	
+		var z = document.getElementById("result-img");
+		z.src = url;
+	}
+	// Funktion, die eine Box erscheinen lässt, mit einem Error String.
+	var returnerror = function(errorString) {
+		alert(errorString);
+	}
     // Auslesen Breitengrad aus der Position
     var getLatitude = function (position) {
         return position.coords.latitude;
@@ -59,7 +85,7 @@ var gtaLocator = (function GtaLocator() {
     };
 
     // Hier Google Maps API Key eintragen
-    var apiKey = "YOUR API KEY HERE";
+    var apiKey = "AIzaSyDqfyv48UOYomgDhLxLtNGWBTQ8CULGgPU";
 
     /**
      * Funktion erzeugt eine URL, die auf die Karte verweist.
@@ -98,9 +124,9 @@ var gtaLocator = (function GtaLocator() {
 
         readme: "Dieses Objekt enthält 'öffentliche' Teile des Moduls.",
 
-        update: function () {
-            // TODO Hier Inhalt der Funktion "update" ergänzen
-        }
+		updateLocation: function () {
+			tryLocate(positiondata,returnerror);	
+		}
 
     }; // ... Ende öffentlicher Teil
 })();
@@ -111,6 +137,8 @@ var gtaLocator = (function GtaLocator() {
  * des Skripts.
  */
 $(document).ready(function () {
-    alert("Hello World")
+    //alert("Hello World")
+	gtaLocator.updateLocation();
     // TODO Hier den Aufruf für updateLocation einfügen
+	
 });
