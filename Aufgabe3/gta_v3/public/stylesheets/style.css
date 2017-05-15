@@ -1,0 +1,50 @@
+* {
+	box-sizing: border-box; 
+}
+
+.col-1 {width: 25%;}
+.col-2 {width: 75%;}
+
+[class*="col-"] {
+    float: left;
+    padding: 15px;
+}
+
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+header {
+	color:white;	
+	background-color : grey;
+	padding : 10px;
+
+}
+
+
+body {
+	padding: 50px;
+	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+#results {
+	padding-left : 0px;
+}
+
+#results li {
+	background-color : lightblue;
+	list-style : none;
+	margin : 5px;
+	padding : 5px;
+}
+
+footer {
+	color: white;
+	background-color: grey;
+	padding : 10px;
+}
+a {
+  color: #00B7FF;
+}
