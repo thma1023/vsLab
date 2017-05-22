@@ -28,6 +28,7 @@ app.set('view engine', 'ejs');
  * Teste das Ergebnis im Browser unter 'http://localhost:3000/'.
  */
 
+app.use(express.static(__dirname + '/public'));
 // TODO: CODE ERGÄNZEN
 
 /**
@@ -71,6 +72,12 @@ app.set('view engine', 'ejs');
  * Als Response wird das ejs-Template mit Geo Tag Objekten gerendert.
  * Die Objekte liegen in einem Standard Radius um die Koordinate (lat, lon).
  */
+
+app.get('/', function(req, res) {
+    res.render('gta', {
+        taglist: []
+    });
+});
 
 // TODO: CODE ERGÄNZEN START
 

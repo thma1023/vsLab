@@ -71,9 +71,13 @@
 								<!--l!i>Castle (49.01379, 8.404435) #sight</li>
 								<li>IWI (49.01379, 8.390071) #edu</li-->
 								<!-- Aufgabe 3 Vorbereitung "Beispieleinträge der Discovery-Liste ersetzen", unsicher ob korrekt -->
-								    <% gtags.forEach(function(gtag) { %>
+								    
+
+	
+								<% if (taglist !== undefined) taglist.forEach(function(gtag) { %>
 									<li><%= gtag.name %> ( <%= gtag.latitude %>,<%= gtag.longitude %>) <%= gtag.hashtag %> </li>
-									<% }); %>
+								<% }); %>
+
 							</ul>
 						</div>
 
