@@ -36,6 +36,15 @@ app.use(express.static(__dirname + '/public'));
  * GeoTag Objekte sollen min. alle Felder des 'tag-form' Formulars aufnehmen.
  */
 
+var GeoTag(longitude, latitude, TagName, hTag){
+
+	this.latitude = latitude;
+	this.longitude = longitude;
+	this.TagName = TagName;
+	this.hTag = hTag;
+}
+
+
 // TODO: CODE ERGÄNZEN
 
 /**
@@ -46,6 +55,9 @@ app.use(express.static(__dirname + '/public'));
  * - Funktion zum hinzufügen eines Geo Tags.
  * - Funktion zum Löschen eines Geo Tags.
  */
+
+
+
 
 // TODO: CODE ERGÄNZEN
 
