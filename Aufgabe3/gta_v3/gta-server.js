@@ -56,6 +56,44 @@ var GeoTag(longitude, latitude, TagName, hTag){
  * - Funktion zum Löschen eines Geo Tags.
  */
 
+var GeoTags = new Object();
+
+GeoTags.array = [];
+GeoTags.searchRadius = function(latitude, longitude, radius){
+	var returnGeoTags = [];	
+	GeoTags.array.forEach(function(entry) {
+		var localRadius =Math.sqrt(Math.pow( latitude - entry.latitude, 2) + Math.pow(longitude - entry.longitude , 2));
+		if ( localRadius < radius) {
+			returnGeoTags.push(entry);
+		}
+	}
+	return returnGeoTags;	
+}
+
+GeoTags.searchName = function(tagName) {
+
+
+
+
+
+}
+
+GeoTags.newGeoTag = function(newGeoTag) {
+
+
+
+
+}
+
+GeoTags.deleteGeoTag = function(oldGeoTag) {
+
+
+
+
+
+}
+
+
 
 
 
