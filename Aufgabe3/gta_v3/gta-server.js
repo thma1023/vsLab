@@ -116,6 +116,12 @@ GeoTags.deleteGeoTag = function(oldGeoTag) {
  * Als Response wird das ejs-Template ohne Geo Tag Objekte gerendert.
  */
 
+app.get('/', function (req, res) {
+	res.render('gta', {
+        taglist: []
+    });
+});
+
 // TODO: CODE ERGÄNZEN START
 
 /**
@@ -131,9 +137,10 @@ GeoTags.deleteGeoTag = function(oldGeoTag) {
  * Die Objekte liegen in einem Standard Radius um die Koordinate (lat, lon).
  */
 
-app.get('/', function(req, res) {
+app.post('/tagging', function(req, res) {
+	req.body()
     res.render('gta', {
-        taglist: []
+        taglist: GeoTags.searchRadius(lat,lon, 1);
     });
 });
 
@@ -150,6 +157,13 @@ app.get('/', function(req, res) {
  * Die Objekte liegen in einem Standard Radius um die Koordinate (lat, lon).
  * Falls 'term' vorhanden ist, wird nach Suchwort gefiltert.
  */
+
+app.post('/discovery', function(req,res) {
+	req.body()
+	res.render('gta', {
+		taglist: []
+	});
+});
 
 // TODO: CODE ERGÄNZEN
 
