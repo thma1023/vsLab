@@ -59,38 +59,46 @@ var GeoTag(longitude, latitude, TagName, hTag){
 var GeoTags = new Object();
 
 GeoTags.array = [];
-GeoTags.searchRadius = function(latitude, longitude, radius){
+
+GeoTags.searchRadius = function(latitude, longitude, radius) {
 	var returnGeoTags = [];	
 	GeoTags.array.forEach(function(entry) {
 		var localRadius =Math.sqrt(Math.pow( latitude - entry.latitude, 2) + Math.pow(longitude - entry.longitude , 2));
-		if ( localRadius < radius) {
+		if ( localRadius <= radius) {
 			returnGeoTags.push(entry);
 		}
-	}
+	})
 	return returnGeoTags;	
 }
 
 GeoTags.searchName = function(tagName) {
-
-
-
-
+	var returnGeoTags = [];	
+	GeoTags.array.forEach(function(entry) {
+		if ( entry.name == tagName) {
+			returnGeoTags.push(entry);
+		}
+	})
+	return returnGeoTags;
 
 }
 
-GeoTags.newGeoTag = function(newGeoTag) {
-
-
-
-
+GeoTags.addGeoTag = function(newGeoTag) {
+	GeoTags.array.push(newGeoTag);
 }
 
 GeoTags.deleteGeoTag = function(oldGeoTag) {
+	if (GeoTags.array[GeoTags.array.length -1] == oldGeoTag) {
+		GeoTags.array.pop();
+	}else{
+		var index;
+		for (index =0, index < GeoTags.array.length, index++) {
 
-
-
-
-
+			if(GeoTags.array[index] == oldGeoTag) {
+				GeoTags.array.splice(index, 1, GeoTags.array.pop());
+				break;
+			}
+		}
+	}
 }
 
 
