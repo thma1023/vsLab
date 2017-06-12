@@ -36,7 +36,7 @@ app.use(express.static(__dirname + '/public'));
  * GeoTag Objekte sollen min. alle Felder des 'tag-form' Formulars aufnehmen.
  */
 
-var GeoTag(longitude, latitude, TagName, hTag){
+function GeoTag(latitude, longitude, TagName, hTag){
 
 	this.latitude = latitude;
 	this.longitude = longitude;
@@ -62,18 +62,23 @@ GeoTags.array = [];
 
 GeoTags.searchRadius = function(latitude, longitude, radius) {
 	var returnGeoTags = [];	
+
+
 	GeoTags.array.forEach(function(entry) {
-		var localRadius =Math.sqrt(Math.pow( latitude - entry.latitude, 2) + Math.pow(longitude - entry.longitude , 2));
-		if ( localRadius <= radius) {
+		var localRadius = Math.sqrt(Math.pow( latitude - entry.latitude, 2) + Math.pow(longitude - entry.longitude , 2));
+	//	if ( localRadius <= radius) {
 			returnGeoTags.push(entry);
-		}
+//		}
 	})
 	return returnGeoTags;	
 }
 
-GeoTags.searchName = function(tagName) {
+GeoTags.searchName = function(tagName, array) {
+	if (typeof array == 'undefined') {
+		array = GeoTags.array;
+	}
 	var returnGeoTags = [];	
-	GeoTags.array.forEach(function(entry) {
+	array.forEach(function(entry) {
 		if ( entry.name == tagName) {
 			returnGeoTags.push(entry);
 		}
@@ -91,7 +96,7 @@ GeoTags.deleteGeoTag = function(oldGeoTag) {
 		GeoTags.array.pop();
 	}else{
 		var index;
-		for (index =0, index < GeoTags.array.length, index++) {
+		for (index =0; index < GeoTags.array.length; index++) {
 
 			if(GeoTags.array[index] == oldGeoTag) {
 				GeoTags.array.splice(index, 1, GeoTags.array.pop());
@@ -138,9 +143,10 @@ app.get('/', function (req, res) {
  */
 
 app.post('/tagging', function(req, res) {
-	req.body()
+	var newGeoTag = new GeoTag(req.body.latitude, req.body.longitude, req.body.geoName, req.body.hashtag);
+	GeoTags.addGeoTag(newGeoTag);
     res.render('gta', {
-        taglist: GeoTags.searchRadius(lat,lon, 1);
+        taglist: GeoTags.searchRadius(8.393843,49.006749799999994, 0.01)
     });
 });
 
@@ -159,9 +165,8 @@ app.post('/tagging', function(req, res) {
  */
 
 app.post('/discovery', function(req,res) {
-	req.body()
 	res.render('gta', {
-		taglist: []
+		taglist: GeoTags.searchName(req.body.searchterm, GeoTags.searchRadius(8.3875353,49.0159439, 0.01))
 	});
 });
 

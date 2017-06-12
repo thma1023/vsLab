@@ -37,7 +37,7 @@
 					<br>
 					<label for = name>name</label> 
 					<br>
-					<input type = text name = name required pattern = "[A-Z,a-z]+"  maxlength =10 placeholder = "name of the GeoTag (A-Z,a-z)">
+					<input type = text name = geoName required pattern = "[A-Z,a-z]+"  maxlength =10 placeholder = "name of the GeoTag (A-Z,a-z)">
 					<br>
 					<label for = hashtag>hashtag</label>
 					<br> 
@@ -75,7 +75,7 @@
 
 	
 								<% if (taglist !== undefined) taglist.forEach(function(gtag) { %>
-									<li><%= gtag.name %> ( <%= gtag.latitude %>,<%= gtag.longitude %>) <%= gtag.hashtag %> </li>
+									<li><%= gtag.TagName %> ( <%= gtag.latitude %>,<%= gtag.longitude %>) <%= gtag.hTag %> </li>
 								<% }); %>
 
 							</ul>
