@@ -29,11 +29,11 @@
 					<br>	
 					<label for = latitude>latitude</label>
 					<br>
-					<input type = text name = latitude id = latitude required placeholder = "latitude in degree">
+					<input type = text name = latitude id = latitude required placeholder = <%= currentPosition[0] %>>
 					<br>
 					<label for = longitude>longitude</label>
 					<br>
-					<input type = text name = longitude id = longitude required placeholder = "longitude in degree">
+					<input type = text name = longitude id = longitude required placeholder = <%= currentPosition[1] %>>
 					<br>
 					<label for = name>name</label> 
 					<br>
@@ -58,7 +58,7 @@
 					<!-- ############### Aufgabe1a Form2 Start -->
 					<input type = hidden id = latitude2>
 					<input type = hidden id = longitude2>
-					<input type = text name = searchterm required>
+					<input type = text name = searchterm required id = searchterm placeholder = <%= currentPosition[0] + "," + currentPosition[1] %>>
 					<button name = searchGeoTag> Search</button>
 					<button name = removeGeoTag> Remove</button>
 					
@@ -77,6 +77,8 @@
 								<% if (taglist !== undefined) taglist.forEach(function(gtag) { %>
 									<li><%= gtag.TagName %> ( <%= gtag.latitude %>,<%= gtag.longitude %>) <%= gtag.hTag %> </li>
 								<% }); %>
+								
+								
 
 							</ul>
 						</div>

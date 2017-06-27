@@ -123,7 +123,8 @@ GeoTags.deleteGeoTag = function(oldGeoTag) {
 
 app.get('/', function (req, res) {
 	res.render('gta', {
-        taglist: []
+        taglist: [],
+		currentPosition: [8.393843,49.006749799999994]
     });
 });
 
@@ -146,7 +147,8 @@ app.post('/tagging', function(req, res) {
 	var newGeoTag = new GeoTag(req.body.latitude, req.body.longitude, req.body.geoName, req.body.hashtag);
 	GeoTags.addGeoTag(newGeoTag);
     res.render('gta', {
-        taglist: GeoTags.searchRadius(8.393843,49.006749799999994, 0.01)
+        taglist: GeoTags.searchRadius(8.393843,49.006749799999994, 0.01),
+		currentPosition: [8.393843,49.006749799999994]
     });
 });
 
@@ -166,7 +168,8 @@ app.post('/tagging', function(req, res) {
 
 app.post('/discovery', function(req,res) {
 	res.render('gta', {
-		taglist: GeoTags.searchName(req.body.searchterm, GeoTags.searchRadius(8.3875353,49.0159439, 0.01))
+		taglist: GeoTags.searchName(req.body.searchterm, GeoTags.searchRadius(8.3875353,49.0159439, 0.01)),
+		currentPosition: [8.393843,49.006749799999994]
 	});
 });
 
