@@ -13,12 +13,15 @@ var http = require('http');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var express = require('express');
-
+var postion = [];
 var app = express();
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({
     extended: false
 }));
+var slongitude = 8.393843;
+var slatitude = 49.006749799999994;
+
 
 // Setze ejs als View Engine
 app.set('view engine', 'ejs');
@@ -79,10 +82,11 @@ GeoTags.searchName = function(tagName, array) {
 	}
 	var returnGeoTags = [];	
 	array.forEach(function(entry) {
-		if ( entry.name == tagName) {
+	console.log(entry.TagName + tagName);
+		if ( entry.TagName == tagName) {
 			returnGeoTags.push(entry);
 		}
-	})
+	});
 	return returnGeoTags;
 
 }
@@ -106,8 +110,20 @@ GeoTags.deleteGeoTag = function(oldGeoTag) {
 	}
 }
 
-
-
+function getPosition() {
+	if (GeoTags.array.length == 0){
+		return [slatitude, slongitude];
+	}
+	var actualTag = GeoTags.array[GeoTags.array.length-1];
+	return [actualTag.latitude, actualTag.longitude];
+}
+/*
+function savePosition(recievedData) {	
+	position[0] = recievedData.coords.latitude;
+	position[1] = recievedData.coords.longitude;
+	
+}
+	
 
 
 // TODO: CODE ERGÄNZEN
@@ -122,9 +138,10 @@ GeoTags.deleteGeoTag = function(oldGeoTag) {
  */
 
 app.get('/', function (req, res) {
+	var position = getPosition();
 	res.render('gta', {
-        taglist: [],
-		currentPosition: [8.393843,49.006749799999994]
+		taglist: [],
+		currentPosition: []		
     });
 });
 
@@ -147,8 +164,8 @@ app.post('/tagging', function(req, res) {
 	var newGeoTag = new GeoTag(req.body.latitude, req.body.longitude, req.body.geoName, req.body.hashtag);
 	GeoTags.addGeoTag(newGeoTag);
     res.render('gta', {
-        taglist: GeoTags.searchRadius(8.393843,49.006749799999994, 0.01),
-		currentPosition: [8.393843,49.006749799999994]
+        taglist: GeoTags.searchRadius(slatitude, slongitude, 0.01),
+		currentPosition: [newGeoTag.latitude, newGeoTag.longitude]
     });
 });
 
@@ -167,9 +184,10 @@ app.post('/tagging', function(req, res) {
  */
 
 app.post('/discovery', function(req,res) {
+	position = getPosition();
 	res.render('gta', {
-		taglist: GeoTags.searchName(req.body.searchterm, GeoTags.searchRadius(8.3875353,49.0159439, 0.01)),
-		currentPosition: [8.393843,49.006749799999994]
+		taglist: GeoTags.searchName(req.body.searchterm, GeoTags.searchRadius(slatitude, slongitude, 0.01)),
+		currentPosition: position
 	});
 });
 

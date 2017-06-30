@@ -125,7 +125,17 @@ var gtaLocator = (function GtaLocator() {
         readme: "Dieses Objekt enthält 'öffentliche' Teile des Moduls.",
 
 		updateLocation: function () {
-			tryLocate(positiondata,returnerror);	
+			console.log("Hier test:");
+			var latitude = document.getElementById("latitude");
+			var longitude = document.getElementById("longitude");	
+			if(latitude.value === "undefined"|| latitude.value == ""){
+				console.log("Try");
+				tryLocate(positiondata,returnerror);
+			} else {
+			var url = getLocationMapSrc(latitude.value,longitude.value);	
+			var z = document.getElementById("result-img");
+			z.src = url;
+			}
 		}
 
     }; // ... Ende öffentlicher Teil
@@ -137,7 +147,7 @@ var gtaLocator = (function GtaLocator() {
  * des Skripts.
  */
 $(document).ready(function () {
-    //alert("Hello World")
+    //alert("Hello World");
 	gtaLocator.updateLocation();
     // TODO Hier den Aufruf für updateLocation einfügen
 	
